@@ -12,7 +12,7 @@ const LoginPage = () => {
         ) 
     }
   return (
-    <div className='loginPage-container container mx-auto'>
+    <div className=' container mx-auto grid grid-rows-[20px_1fr_20px] items-center justify-items-center'>
         <form autoComplete='off' className='flex flex-col gap-2 mx-2 w-1/2' action={async (formData)=> {
             "use server"
             const email = formData.get("email")
