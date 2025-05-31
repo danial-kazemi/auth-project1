@@ -12,32 +12,33 @@ const LoginPage = () => {
         ) 
     }
   return (
-    <div className=' container mx-auto grid grid-rows-[20px_1fr_20px] items-center justify-items-center'>
-        <form autoComplete='off' className='flex flex-col gap-2 mx-2 w-1/2' action={async (formData)=> {
+    <div className='container mx-auto flex flex-col justify-center w-xs'>
+        <h2 className='text-center p-4'>Login</h2>
+        <form autoComplete='off' className='flex flex-col gap-2 w-full' action={async (formData)=> {
             "use server"
             const email = formData.get("email")
-            const password = formData.get("password")
+            const password = formData.get("password")           
+            const data = {
+                email,
+                password
+            }           
             try {   
-                const request = await fetch(`/api/auth/signin`, {
+                const request = await fetch(`http://127.0.0.1:3000/api/auth/signin`, {
                     method: "POST",
                     headers: {
                         'content-Type': 'application/json',
                     },
-                    body: {
-                        email,
-                        password,
-                    }
-                    
+                    body: JSON.stringify(data)                    
                 })             
             } catch (error : any) {
-                console.log(error);                
+                console.log(error);
             }
         }   
 }>
-            <input  className='p-2 text-slate-800  bg-slate-400 outline-none rounded-sm' type='text' name='email' placeholder='E-Mail'></input>
-            <input className=' mx-2' type="password" name='password' placeholder='Password'/>
-            <button className='ms-2'>Login
-                 {spinnerView(true)}
+            <input className='p-2 text-slate-800 bg-slate-400 outline-none rounded-sm' type='email' name='email' placeholder='E-Mail' />
+            <input className='p-2 text-slate-800 bg-slate-400 outline-none rounded-sm' type="password" name='password' placeholder='Password'/>
+            <button className='p-2 bg-blue-500 rounded-sm'>Login
+
             </button>
         </form>
     </div>
