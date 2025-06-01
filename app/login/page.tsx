@@ -22,7 +22,7 @@ import { SignInGithubButton } from '@/components/sign-in-github-button';
         <form autoComplete='off' className='flex flex-col gap-2 w-full' action={async (formData)=> {
             "use server"
             const email = formData.get("email")
-            const password = formData.get("password")           
+            const password = formData.get("password")
             const data = {
                 email,
                 password
@@ -40,6 +40,7 @@ import { SignInGithubButton } from '@/components/sign-in-github-button';
             }
         }   
 }>
+            <input className='p-2 text-slate-800 bg-slate-400 outline-none rounded-sm' type='text' name='name' placeholder='Full Name' />
             <input className='p-2 text-slate-800 bg-slate-400 outline-none rounded-sm' type='email' name='email' placeholder='E-Mail' />
             <input className='p-2 text-slate-800 bg-slate-400 outline-none rounded-sm' type="password" name='password' placeholder='Password'/>
             <button type='submit' className='p-2 bg-blue-500 rounded-sm'>Login</button>            
