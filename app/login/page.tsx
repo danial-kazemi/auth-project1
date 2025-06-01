@@ -1,8 +1,13 @@
 import { error, log } from 'console'
 import Error from 'next/error'
 import React, { FormEvent } from 'react'
-
-const LoginPage = () => {
+import { BsWindowSidebar } from 'react-icons/bs';
+import { auth, signIn } from '../auth';
+import { login } from '@/lib/actions/auth';
+import { SignInGithubButton } from '@/components/sign-in-github-button';
+ const  LoginPage = async () => { 
+    const session = await auth();   
+    console.log(session?.user?.image);    
     const spinnerView = (state: boolean) => {
        return state &&  (
              <svg aria-hidden="true" className="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600 ml-2" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -37,10 +42,9 @@ const LoginPage = () => {
 }>
             <input className='p-2 text-slate-800 bg-slate-400 outline-none rounded-sm' type='email' name='email' placeholder='E-Mail' />
             <input className='p-2 text-slate-800 bg-slate-400 outline-none rounded-sm' type="password" name='password' placeholder='Password'/>
-            <button className='p-2 bg-blue-500 rounded-sm'>Login
-
-            </button>
+            <button type='submit' className='p-2 bg-blue-500 rounded-sm'>Login</button>            
         </form>
+        <SignInGithubButton />
     </div>
   )
 }

@@ -1,19 +1,35 @@
 
+import { auth } from "@/app/auth";
 import TeamToggle from "./theme-toggle";
 import Link from "next/link"; 
-export default function Header() {
+import  Image  from "next/image";
+import { SignOutButton } from "./sign-out-button";
+export default async function Header() {
+    const session = await auth();
   return (
-    <header className='grid grid-cols-2 content-center justify-between
-'>
+    <header className='flex justify-between'>
         <div className="px-2">
-            Danial Kazemi
+            
         </div>
-        <div className="px-2">
-            <span className="px-2">
-                <TeamToggle />
+        <div className="px-2 flex flex-row items-center">
+            <span className="p-2">
+                {                    
+                session?.user?.image && <Image  className="rounded-full" src={session.user.image} width="32" height="32" alt={session.user.name ?? "avatar"} />
+                }
             </span>
-            <span className="px-2">
-                <Link href="/login">Login</Link>
+            <span className="p-2">
+                {                    
+                session?.user && `Hi, ${session?.user?.name}`
+                }
+            </span>
+            <span className="p-2">
+                {                    
+                session?.user && < SignOutButton/>
+                }
+            </span>
+            
+            <span className="p-2">                
+                <TeamToggle />
             </span>
         </div>        
         
