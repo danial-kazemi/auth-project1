@@ -31,7 +31,7 @@ import { SignInGithubButton } from '@/components/sign-in-github-button';
                 const request = await fetch(`http://127.0.0.1:3000/api/auth/signin`, {
                     method: "POST",
                     headers: {
-                        'content-Type': 'application/json',
+                        'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(data)                    
                 })             
@@ -40,7 +40,6 @@ import { SignInGithubButton } from '@/components/sign-in-github-button';
             }
         }   
 }>
-            <input className='p-2 text-slate-800 bg-slate-400 outline-none rounded-sm' type='text' name='name' placeholder='Full Name' />
             <input className='p-2 text-slate-800 bg-slate-400 outline-none rounded-sm' type='email' name='email' placeholder='E-Mail' />
             <input className='p-2 text-slate-800 bg-slate-400 outline-none rounded-sm' type="password" name='password' placeholder='Password'/>
             <button type='submit' className='p-2 bg-blue-500 rounded-sm'>Login</button>            

@@ -1,4 +1,4 @@
-import mongoose,{Document, Schema} from "mongoose";
+import mongoose,{Schema} from "mongoose";
 const userSchema:Schema = new mongoose.Schema({
     fullname: {
         type: String,
