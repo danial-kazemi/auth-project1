@@ -1,6 +1,6 @@
-import mongoose,{Mongoose, Schema} from "mongoose";
+import mongoose,{Schema} from "mongoose";
 const userSchema:Schema = new mongoose.Schema({
-    name: {
+    fullname: {
         type: String,
         required: true,
     },
@@ -12,15 +12,32 @@ const userSchema:Schema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    isActive : {
+        type: Boolean,
+        default: true,
+    },
     image_url: {
         type: String,
-        required: false,
+        required: true,
+        default: "/assets/images/user/userAvatar1.webp"
+    },
+    address: {
+        type: String,
+        required: false
+    },
+    phone: {
+        type: String,
+        required: false
     },
     role: {
         type: [String],
         required: true,
         default : "user"
+    },
+    date: {
+        type: Date,
+        required: true,
     } 
 }, { autoCreate: false, autoIndex: false })
-const UserModel = mongoose.models.user || mongoose.model("user", userSchema)  
+const UserModel = mongoose.models.User || mongoose.model("User", userSchema)
 export default UserModel;
