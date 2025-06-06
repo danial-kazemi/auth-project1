@@ -7,32 +7,32 @@ export const {auth, handlers, signIn, signOut} = NextAuth({
     //     strategy: 'jwt'
     // },
     providers: [
-    //     Credentials({
-    //   // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-    //   // e.g. domain, username, password, 2FA token, etc.
-    //   credentials: {
-    //     email: {},
-    //     password: {},
-    //   },
-    //   authorize: async (credentials) => {
-    //     let user = null
+        Credentials({
+      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
+      // e.g. domain, username, password, 2FA token, etc.
+      credentials: {
+        email: {label: "Email", type: 'password', placeholder: "Email"},
+        password: {label: 'Password', type: 'password', placeholder: 'Password'},
+      },
+      authorize: async (credentials) => {
+        let user = null
  
-    //     // logic to salt and hash password
-    //     const pwHash = saltAndHashPassword(credentials.password)
+        // logic to salt and hash password
+        const pwHash = saltAndHashPassword(credentials.password)
  
-    //     // logic to verify if the user exists
-    //     user = await getUserFromDb(credentials.email, pwHash)
+        // logic to verify if the user exists
+        user = await getUserFromDb(credentials.email, pwHash)
  
-    //     if (!user) {
-    //       // No user found, so this is their first attempt to login
-    //       // Optionally, this is also the place you could do a user registration
-    //       throw new Error("Invalid credentials.")
-    //     }
+        if (!user) {
+          // No user found, so this is their first attempt to login
+          // Optionally, this is also the place you could do a user registration
+          throw new Error("Invalid credentials.")
+        }
  
-    //     // return user object with their profile data
-    //     return user
-    //   },
-    // }),
+        // return user object with their profile data
+        return user
+      },
+    }),
         GitHub
     ]
 })

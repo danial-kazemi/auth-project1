@@ -44,7 +44,8 @@ const userSchema:Schema = new mongoose.Schema({
     updatedAt: {
         type: Date,
         required: false,
-    } 
+    } ,
+    authProviderId: String
 }, { autoCreate: false, autoIndex: false })
-const UserModel = mongoose.models.User || mongoose.model("User", userSchema)
-export default UserModel;
+const User = mongoose.models?.User || mongoose.model("User", userSchema)
+export default User;

@@ -18,18 +18,15 @@ function RegisterPage() {
                 password
               }
               
-              const req= await fetch("http://127.0.0.1:3000/api/register",{
-                method: "POST",
-                headers: {
-                        'Content-Type': 'application/json',
-                    },
-                body: JSON.stringify(data),
-              })
+              
             }}>
-            <input className='outline-none bg-gray-600 rounded-sm p-2' type='text' name='fullname' placeholder='name' autoFocus/>
-            <input className='outline-none bg-gray-600 rounded-sm p-2' type="email" name="email" placeholder='E-mail' />
-            <input className='outline-none bg-gray-600 rounded-sm p-2' type='password' name='password' placeholder='Password' />
-            <button type="submit" className='bg-gray-500 rounded-sm p-2 text-gray-200' >Register</button>
+            <label  htmlFor='fullname'>Full Name:</label >
+            <input className='outline-none bg-gray-600 rounded-sm p-2' id='fullname' type='text' name='fullname' placeholder='Mack Tyler ' autoFocus/>
+            <label  htmlFor='email'>E-Mail:</label >        
+            <input className='outline-none bg-gray-600 rounded-sm p-2' id="email" type="email" name="email" placeholder='Mack@tyler.com' />
+            <label  htmlFor='password'>Password:</label >
+            <input className='outline-none bg-gray-600 rounded-sm p-2' id='password' type='password' name='password' placeholder='Abcd123$@' />
+            <button type="submit" className='bg-gray-500 rounded-sm p-2 text-gray-200'>Register</button>
           </form>
         </div>        
     </main>
