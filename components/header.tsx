@@ -1,5 +1,5 @@
 
-import { auth } from "@/app/auth";
+import { auth } from "@/auth";
 import TeamToggle from "./theme-toggle";
 import Link from "next/link"; 
 import  Image  from "next/image";

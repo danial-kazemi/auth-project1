@@ -2,7 +2,7 @@ import { error, log } from 'console'
 import Error from 'next/error'
 import React, { FormEvent } from 'react'
 import { BsWindowSidebar } from 'react-icons/bs';
-import { auth, signIn } from '../auth';
+import { auth, signIn } from '../../auth';
 import { login } from '@/lib/actions/auth';
 import { SignInGithubButton } from '@/components/sign-in-github-button';
  const  LoginPage = async () => { 

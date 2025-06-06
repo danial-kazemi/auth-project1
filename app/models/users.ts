@@ -1,4 +1,9 @@
 import mongoose,{Schema} from "mongoose";
+import { unique } from "next/dist/build/utils";
+const addressSchema = new mongoose.Schema({
+    street: String,
+    city: String,
+})
 const userSchema:Schema = new mongoose.Schema({
     fullname: {
         type: String,
@@ -7,6 +12,7 @@ const userSchema:Schema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -19,24 +25,25 @@ const userSchema:Schema = new mongoose.Schema({
     image_url: {
         type: String,
         required: true,
-        default: "/assets/images/user/userAvatar1.webp"
+        default: "/assets/images/user/avatar-icon.svg"
     },
-    address: {
-        type: String,
-        required: false
-    },
+    address: addressSchema,
     phone: {
         type: String,
         required: false
     },
     role: {
-        type: [String],
-        required: true,
-        default : "user"
+        type: [String],        
+        default : "user",
+        required: true
     },
-    date: {
+    createdAt: {
         type: Date,
         required: true,
+    } ,
+    updatedAt: {
+        type: Date,
+        required: false,
     } 
 }, { autoCreate: false, autoIndex: false })
 const UserModel = mongoose.models.User || mongoose.model("User", userSchema)
