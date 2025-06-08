@@ -5,7 +5,11 @@ const addressSchema = new mongoose.Schema({
     city: String,
 })
 const userSchema:Schema = new mongoose.Schema({
-    fullname: {
+    firstName: {
+        type: String,
+        required: true,
+    },
+    lastName: {
         type: String,
         required: true,
     },

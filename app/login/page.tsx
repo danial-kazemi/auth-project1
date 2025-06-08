@@ -1,10 +1,12 @@
-import { error, log } from 'console'
 import Error from 'next/error'
+import { register } from '@/lib/actions/user';
 import React, { FormEvent } from 'react'
 import { BsWindowSidebar } from 'react-icons/bs';
 import { auth, signIn } from '../../auth';
 import { login } from '@/lib/actions/auth';
+import Header from '@/components/header';
 import { SignInGithubButton } from '@/components/sign-in-github-button';
+import Link from 'next/link';
  const  LoginPage = async () => { 
     const session = await auth();   
     console.log(session?.user?.image);    
@@ -17,32 +19,16 @@ import { SignInGithubButton } from '@/components/sign-in-github-button';
         ) 
     }
   return (
+    
     <div className='container mx-auto flex flex-col justify-center w-xs'>
+        <Header />
         <h2 className='text-center p-4'>Login</h2>
-        <form autoComplete='off' className='flex flex-col gap-2 w-full' action={async (formData)=> {
-            "use server"
-            const email = formData.get("email")
-            const password = formData.get("password")
-            const data = {
-                email,
-                password
-            }           
-            try {   
-                const request = await fetch(`http://127.0.0.1:3000/api/auth/signin`, {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)                    
-                })             
-            } catch (error : any) {
-                console.log(error);
-            }
-        }   
-}>
+        <form autoComplete='off' className='flex flex-col gap-2 w-full' action={register}>
             <input className='p-2 text-slate-800 bg-slate-400 outline-none rounded-sm' type='email' name='email' placeholder='E-Mail' />
             <input className='p-2 text-slate-800 bg-slate-400 outline-none rounded-sm' type="password" name='password' placeholder='Password'/>
-            <button type='submit' className='p-2 bg-blue-500 rounded-sm'>Login</button>            
+            <button type='submit' className='p-2 bg-blue-500 rounded-sm'>Login</button>
+            <p className=''>Don't have account? <Link href='/register'>Register</Link></p>    
+            <div className='bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full' />    
         </form>
         <SignInGithubButton />
     </div>

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-export default async function connect() {
+export async function connect() {
     const MONGO_URI = process.env.MONGODB_URI;    
         if(!MONGO_URI) {
             throw new Error('Please define MONGO_URI enviroment variable insile .env.local')
@@ -9,8 +9,10 @@ export default async function connect() {
      try {
         await mongoose.connect(MONGO_URI);        
         console.log("Successfully connected to mongoDB");        
-     } catch (error: any) {        
+     } catch (error: any) {
         throw new Error(error)        
      }
-    }   
+    }
 }
+
+export default {connect};

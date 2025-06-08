@@ -1,5 +1,5 @@
 import UserModel from "@/app/models/users";
-import mongoConnect from "@/lib/mongoConnect";
+import mongoConnect from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: Request){
     const res = await request.json();
