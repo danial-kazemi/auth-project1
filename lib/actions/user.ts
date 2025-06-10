@@ -7,18 +7,25 @@ const register = async (formData: FormData) => {
         const firstName = formData.get('firstName') as string;        
         const lastName = formData.get('lastName') as string;
         const email = formData.get('email') as string;
-        const password = formData.get('password') as string;        
+        const password = formData.get('password') as string;
         const data = {
-            firstName,
-            lastName,            
-            email,
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
+            email: email.toLowerCase().trim(),
             password,
-            createdAt : new Date(),
-        }
+            createdAt: Date.now()
+        }     
+        
+        if(firstName || lastName || email || password) {
+            await db.connect();
+            const exsistingUser = await User.findOne({email});
+            if(exsistingUser) throw new Error('User already exsist!');
+            User.create(data)
+            console.log('user created');           
 
-        await db.connect();
-        const newUser = new User(data);
-        await newUser.save();
+        }
+        // const newUser = new User(data);
+        // await newUser.save();
 // const Tank = mongoose.model('Tank', yourSchema);
 // const small = new Tank({ size: 'small' });
 // await small.save();
@@ -27,7 +34,8 @@ const register = async (formData: FormData) => {
 // // or, for inserting large batches of documents
 // await Tank.insertMany([{ size: 'small' }]);    
     }catch(error: any){
-        throw new Error(error);
+       console.log(error.message);
+       
     }
 }
 
