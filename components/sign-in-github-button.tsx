@@ -1,5 +1,9 @@
 "use client";
-import { login } from "@/lib/actions/auth";
+import { githubSignIn } from "@/lib/actions/user";
 export const SignInGithubButton = () => {
-    return  <button onClick={()=> login()}>Sign In With Github</button>
+    return (
+        <form action={githubSignIn}>
+             <button type="submit">Sign In With Github</button>
+        </form>
+    )
 }

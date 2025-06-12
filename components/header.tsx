@@ -1,11 +1,12 @@
 
 import { auth } from "@/auth";
 import TeamToggle from "./theme-toggle";
-import Link from "next/link"; 
 import  Image  from "next/image";
 import { SignOutButton } from "./sign-out-button";
 export default async function Header() {
     const session = await auth();
+    console.log(session);
+    
   return (
     <header className='flex justify-between'>
         <div className="px-2">

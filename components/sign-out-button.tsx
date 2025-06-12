@@ -1,5 +1,5 @@
 "use client";
-import { login, logout } from "@/lib/actions/auth";
+import { logOut } from "@/lib/actions/user";
 export const SignOutButton = () => {
-    return  <button  onClick={()=> logout()}>Sign Out</button>
+    return  <button  onClick={()=> logOut()}>Sign Out</button>
 }
