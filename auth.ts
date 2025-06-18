@@ -1,15 +1,70 @@
 import NextAuth, { CredentialsSignin } from "next-auth";
+
 import GitHub from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import db from "./lib/db";
 import User from "./app/models/users";
 import bcrypt from "bcryptjs";
 
+//  declare module "next-auth/jwt" {
+//   interface JWT {
+//     access_token: string
+//     expires_at: number
+//     refresh_token?: string
+//     error?: "RefreshTokenError"
+//   }
+
+// declare module "next-auth" {
+//   interface Session {
+//     error?: "RefreshTokenError"
+//   }
+// }
+
 export const {auth, handlers, signIn, signOut} = NextAuth({
-    // session: {
-    //     strategy: 'jwt'
-    // },
+  callbacks: {
+      async session({session, token}) {
+        if(token?.sub && token?.role) {
+          session.user.id = token.sub;
+          session.user.role = token.role;
+        } 
+        return session
+      },
+      async jwt({token, user}) {
+        if(user) {
+          token.role = user.role
+        }
+        return token;
+      },
+       signIn : async ({user, account} ) => {
+          if(account?.provider === "google") {
+            try {
+              const {email, name, image, id} = user;
+              await db.connect();
+              const alreadyUser = await User.findOne({email});
+              if(!alreadyUser) {
+                await User.create({email, name, image, authProviderId: id});
+              } else {
+                return true;
+              }
+              
+            } catch (error) {
+              throw new Error("Error Google Provider")
+            }
+            
+          }
+          if(account?.provider === "credentials") {
+            return true;
+          } else return false
+      }
+    },
+    
     providers: [
+        Google,
+        GitHub({
+          clientId: process.env.AUTH_GITHUB_ID,
+          clientSecret: process.env.AUTH_GITHUB_SECRET
+        }),
         Credentials({ 
       credentials: {
         email: {label: "Email", type: 'email', placeholder: "mack@tyler.com"},
@@ -38,10 +93,11 @@ export const {auth, handlers, signIn, signOut} = NextAuth({
                      
         return userData;
       },
-    }),
-        GitHub
+    })
     ],
     pages: {
       signIn: "/login"
     }
+   
+    
 })

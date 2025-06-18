@@ -90,6 +90,11 @@ const githubSignIn = async () => {
         redirectTo: "/dashboard"
     })
 };
+const googleSignIn = async () => {
+    await signIn("google", {
+        redirectTo: "/dashboard"
+    })
+};
 
 const logOut = async () => {
     await signOut( {
@@ -97,4 +102,4 @@ const logOut = async () => {
     })
 };
 
-export {register, login, logOut, githubSignIn};
+export {register, login, logOut, githubSignIn, googleSignIn};

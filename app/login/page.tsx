@@ -3,7 +3,8 @@ import { login } from '@/lib/actions/user';
 import React, { FormEvent } from 'react'
 import { BsWindowSidebar } from 'react-icons/bs';
 import Header from '@/components/header';
-import { SignInGithubButton } from '@/components/sign-in-github-button';
+import SignInGithubButton from '@/components/sign-in-github-button';
+import SignInGoogleButton from '@/components/sign-in-google-button';
 import Link from 'next/link';
  const  LoginPage = async () => { 
     const spinnerView = (state: boolean) => {
@@ -26,6 +27,7 @@ import Link from 'next/link';
             <div className='bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full' />    
         </form>
         <SignInGithubButton />
+        <SignInGoogleButton />
     </div>
   )
 }

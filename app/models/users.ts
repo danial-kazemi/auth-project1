@@ -41,6 +41,10 @@ const userSchema:Schema = new mongoose.Schema({
         default : "user",
         required: true
     },
+    providerId: {
+        type: String,
+        require: false
+    } ,
     createdAt: {
         type: Date,
         required: true,
