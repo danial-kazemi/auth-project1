@@ -1,8 +1,12 @@
-import { error, log } from 'console'
 import Error from 'next/error'
+import { login } from '@/lib/actions/user';
 import React, { FormEvent } from 'react'
-
-const LoginPage = () => {
+import { BsWindowSidebar } from 'react-icons/bs';
+import Header from '@/components/header';
+import SignInGithubButton from '@/components/sign-in-github-button';
+import SignInGoogleButton from '@/components/sign-in-google-button';
+import Link from 'next/link';
+ const  LoginPage = async () => { 
     const spinnerView = (state: boolean) => {
        return state &&  (
              <svg aria-hidden="true" className="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600 ml-2" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -11,35 +15,19 @@ const LoginPage = () => {
         </svg>
         ) 
     }
-  return (
-    <div className=' container mx-auto grid grid-rows-[20px_1fr_20px] items-center justify-items-center'>
-        <form autoComplete='off' className='flex flex-col gap-2 mx-2 w-1/2' action={async (formData)=> {
-            "use server"
-            const email = formData.get("email")
-            const password = formData.get("password")
-            try {   
-                const request = await fetch(`/api/auth/signin`, {
-                    method: "POST",
-                    headers: {
-                        'content-Type': 'application/json',
-                    },
-                    body: {
-                        email,
-                        password,
-                    }
-                    
-                })             
-            } catch (error : any) {
-                console.log(error);                
-            }
-        }   
-}>
-            <input  className='p-2 text-slate-800  bg-slate-400 outline-none rounded-sm' type='text' name='email' placeholder='E-Mail'></input>
-            <input className=' mx-2' type="password" name='password' placeholder='Password'/>
-            <button className='ms-2'>Login
-                 {spinnerView(true)}
-            </button>
+  return (    
+    <div className='container mx-auto flex flex-col justify-center w-xs'>
+        <Header />
+        <h2 className='text-center p-4'>Login</h2>
+        <form action={login} autoComplete='off' className='flex flex-col gap-2 w-full'>
+            <input className='p-2 text-slate-800 bg-slate-400 outline-none rounded-sm' type='email' name='email' placeholder='E-Mail' />
+            <input className='p-2 text-slate-800 bg-slate-400 outline-none rounded-sm' type="password" name='password' placeholder='Password'/>
+            <button type="submit" className='p-2 bg-blue-500 rounded-sm'>Login</button>
+            <p className=''>Don't have account? <Link href='/register'>Register</Link></p>    
+            <div className='bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full' />    
         </form>
+        <SignInGithubButton />
+        <SignInGoogleButton />
     </div>
   )
 }
